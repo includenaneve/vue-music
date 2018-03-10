@@ -1,15 +1,18 @@
 <template>
   <div id="app">
     <m-header></m-header>
-    <router-view/>
+    <tab></tab>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>/* eslint-disable */
  import MHeader from 'components/m-header/m-header.vue'
+ import Tab from 'components/tab/tab.vue'
   export default {
        components:{
-           MHeader
+         MHeader,
+         Tab
        }
     }
 </script>
