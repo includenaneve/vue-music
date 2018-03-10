@@ -5,13 +5,14 @@
   </div>
 </template>
 
-<script>
+<script>/* eslint-disable */
  import MHeader from 'components/m-header/m-header.vue'
+  export default {
+       components:{
+           MHeader
+       }
+    }
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
-  @import "common/less/variable.less";
-  #app {
-    color:@color-theme;
-  }
 </style>
