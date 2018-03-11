@@ -10,8 +10,8 @@
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
-  @import "../../common/less/mixin.less";
-  @import "../../common/less/variable";
+  @import "~common/less/mixin.less";
+  @import "~common/less/variable";
 
   .m-header{
     position: relative;
