@@ -4,7 +4,7 @@
       <slot></slot>
     </div>
     <div class="dots">
-      <span class="dot" v-for="(item,index) in dots" :key="index"></span>
+      <span class="dot" v-for="(item,index) in dots" :class="{active:currentPageIndex === index}" :key="index"></span>
     </div>
   </div>
 </template>
@@ -16,6 +16,7 @@
   export default {
     data() {
       return {
+        currentPageIndex: 0,
         dots: []
       }
     },
@@ -30,7 +31,7 @@
       },
       interval: {
         type: Number,
-        default: 4000
+        default: 1000
       }
     },
     mounted() {
@@ -38,6 +39,10 @@
         this._setSliderWidth();
         this._initDots();
         this._initSlider();
+
+        if (this.autoPlay) {
+          this._play();
+        }
       }, 20)
     },
     methods: {
@@ -54,7 +59,7 @@
           width += sliderWidth;
         }
         if (this.loop) {
-          width += 2 * sliderWidth;
+          width += sliderWidth;
         }
         this.$refs.sliderGroup.style.width = width + 'px';
       },
@@ -72,6 +77,26 @@
           snapSpeed: 400,
           click: true
         })
+        this.slider.on('scrollEnd', () => {
+          let pageIndex = this.slider.getCurrentPage().pageX;
+          if (this.loop) {
+            pageIndex -= 1;
+          }
+          this.currentPageIndex = pageIndex;
+          if (this.autoPlay) {
+            clearTimeout(this.timer);
+            this._play();
+          }
+        })
+      },
+      _play() {
+        let pageIndex = this.currentPageIndex + 1;
+        if (this.loop) {
+          pageIndex++;
+        }
+        this.timer = setTimeout(() => {
+          this.slider.goToPage(pageIndex, 0, 400);
+        }, this.interval)
       }
     }
   }
