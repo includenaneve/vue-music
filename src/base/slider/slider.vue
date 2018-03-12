@@ -4,6 +4,7 @@
       <slot></slot>
     </div>
     <div class="dots">
+      <span class="dot" v-for="(item,index) in dots" :key="index"></span>
     </div>
   </div>
 </template>
@@ -13,6 +14,11 @@
   import {addClass} from 'common/js/dom.js'
 
   export default {
+    data() {
+      return {
+        dots: []
+      }
+    },
     props: {
       loop: {
         type: Boolean,
@@ -30,6 +36,7 @@
     mounted() {
       setTimeout(() => {
         this._setSliderWidth();
+        this._initDots();
         this._initSlider();
       }, 20)
     },
@@ -50,6 +57,9 @@
           width += 2 * sliderWidth;
         }
         this.$refs.sliderGroup.style.width = width + 'px';
+      },
+      _initDots() {
+        this.dots = new Array(this.children.length);
       },
       _initSlider() {
         this.slider = new BScroll(this.$refs.slider, {
@@ -93,25 +103,25 @@
           width: 100%;
         }
       }
-      .dots {
-        position: absolute;
-        right: 0;
-        left: 0;
-        bottom: 12px;
-        text-align: center;
-        font-size: 0;
-        .dot {
-          display: inline-block;
-          margin: 0 4px;
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
+    }
+    .dots {
+      position: absolute;
+      right: 0;
+      left: 0;
+      bottom: 12px;
+      text-align: center;
+      font-size: 0;
+      .dot {
+        display: inline-block;
+        margin: 0 4px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: @color-text-l;
+        &.active {
+          width: 20px;
+          border-radius: 5px;
           background: @color-text-l;
-          &.active {
-            width: 20px;
-            border-radius: 5px;
-            background: @color-text-l;
-          }
         }
       }
     }

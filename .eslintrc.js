@@ -26,12 +26,7 @@ module.exports = {
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'eol-last':0,
-    "no-unused-vars": [2, {
-      // 允许声明未使用变量
-      "vars": "local",
-      // 参数不检查
-      "args": "none"
-    }],
+    "no-unused-vars": [0],
     // 关闭语句强制分号结尾
     "semi": [0],
     //空行最多不能超过100行
