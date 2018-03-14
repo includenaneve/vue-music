@@ -79,7 +79,7 @@
         this.slider.on('scrollEnd', () => {
           let pageIndex = this.slider.getCurrentPage().pageX;
           this.currentPageIndex = pageIndex;
-
+          console.log('scrollEnd!!');
           if (this.autoPlay) {
             clearTimeout(this.timer);
             this._play();
@@ -87,7 +87,7 @@
         })
       },
       _play() {
-        let pageIndex = this.currentPageIndex + 1;
+        let pageIndex = (this.currentPageIndex + 1) % 5;
         this.timer = setTimeout(() => {
           this.slider.goToPage(pageIndex, 0, 400);
         }, this.interval)
