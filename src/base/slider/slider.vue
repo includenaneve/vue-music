@@ -37,11 +37,8 @@
     mounted() {
       setTimeout(() => {
         this._setSliderWidth();
-        // this._initDots();
+        this._initDots();
         this._initSlider();
-        // if (this.autoPlay) {
-        //   this._play();
-        // }
       }, 20)
     },
     methods: {
@@ -55,9 +52,9 @@
           child.style.width = sliderWidth + 'px';
           width += sliderWidth;
         }
-        // if (this.loop) {
-        //   width += 2 * sliderWidth;
-        // }
+        if (this.loop) {
+          width += 2 * sliderWidth;
+        }
         this.$refs.sliderGroup.style.width = width + 'px';
       },
       _initDots() {
@@ -68,34 +65,17 @@
           scrollX: true,
           scrollY: false,
           momentum: false,
-          snap: true,
-          snapLoop: this.loop,
-          snapThreshold: 0.3,
-          snapSpeed: 400,
+          snap: {
+            loop: this.loop,
+            threshold: 0.3,
+            speed: 400
+          },
           click: true
         })
-        // this.slider.on('scrollEnd', () => {
-        //   let pageIndex = this.slider.getCurrentPage().pageX;
-        //   console.log(this.slider.getCurrentPage());
-        //   if (this.loop) {
-        //     pageIndex -= 1;
-        //   }
-        //   this.currentPageIndex = pageIndex;
-        //   console.log(pageIndex)
-        //   if (this.autoPlay) {
-        //     clearTimeout(this.timer);
-        //     this._play();
-        //   }
-        // })
-      },
-      _play() {
-        let pageIndex = this.currentPageIndex + 1;
-        if (this.loop) {
-          pageIndex++;
-        }
-        this.timer = setTimeout(() => {
-          this.slider.goToPage(pageIndex, 0, 400);
-        }, this.interval)
+        this.slider.on('scrollEnd', () => {
+          let pageIndex = this.slider.getCurrentPage().pageX;
+          this.currentPageIndex = pageIndex;
+        })
       }
     }
   }
@@ -104,6 +84,7 @@
 
 <style scoped lang="less" rel="stylesheet/less">
   @import "~common/less/variable.less";
+
   .slider {
     min-height: 1px;
     .slider-group {
