@@ -4,7 +4,7 @@
       <slot></slot>
     </div>
     <div class="dots">
-      <span class="dot" v-for="(item,index) in dots" :class="{active:currentPageIndex === index}" :key="index"></span>
+      <span class="dot" :class="{active:currentPageIndex === index}" v-for="(item,index) in dots" :key="index"></span>
     </div>
   </div>
 </template>
@@ -37,30 +37,27 @@
     mounted() {
       setTimeout(() => {
         this._setSliderWidth();
-        this._initDots();
+        // this._initDots();
         this._initSlider();
-
-        if (this.autoPlay) {
-          this._play();
-        }
+        // if (this.autoPlay) {
+        //   this._play();
+        // }
       }, 20)
     },
     methods: {
       _setSliderWidth() {
         this.children = this.$refs.sliderGroup.children;
-
         let width = 0;
         let sliderWidth = this.$refs.slider.clientWidth;
         for (let i = 0; i < this.children.length; i++) {
           let child = this.children[i];
           addClass(child, 'slider-item');
-
           child.style.width = sliderWidth + 'px';
           width += sliderWidth;
         }
-        if (this.loop) {
-          width += sliderWidth;
-        }
+        // if (this.loop) {
+        //   width += 2 * sliderWidth;
+        // }
         this.$refs.sliderGroup.style.width = width + 'px';
       },
       _initDots() {
@@ -77,17 +74,19 @@
           snapSpeed: 400,
           click: true
         })
-        this.slider.on('scrollEnd', () => {
-          let pageIndex = this.slider.getCurrentPage().pageX;
-          if (this.loop) {
-            pageIndex -= 1;
-          }
-          this.currentPageIndex = pageIndex;
-          if (this.autoPlay) {
-            clearTimeout(this.timer);
-            this._play();
-          }
-        })
+        // this.slider.on('scrollEnd', () => {
+        //   let pageIndex = this.slider.getCurrentPage().pageX;
+        //   console.log(this.slider.getCurrentPage());
+        //   if (this.loop) {
+        //     pageIndex -= 1;
+        //   }
+        //   this.currentPageIndex = pageIndex;
+        //   console.log(pageIndex)
+        //   if (this.autoPlay) {
+        //     clearTimeout(this.timer);
+        //     this._play();
+        //   }
+        // })
       },
       _play() {
         let pageIndex = this.currentPageIndex + 1;
@@ -105,7 +104,6 @@
 
 <style scoped lang="less" rel="stylesheet/less">
   @import "~common/less/variable.less";
-
   .slider {
     min-height: 1px;
     .slider-group {
