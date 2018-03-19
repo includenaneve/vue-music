@@ -21,12 +21,13 @@
 
 <script type="text/ecmascript-6">
   import Slider from 'base/slider/slider.vue'
-  import {getRecommend} from 'api/recommend.js'
+  import {getRecommend, getDiscList} from 'api/recommend.js'
   import {ERR_OK} from 'api/config.js'
 
   export default {
     created() {
       this._getRecommend();
+      this._getDiscList();
     },
     data() {
       return {
@@ -40,6 +41,13 @@
             this.recommends = res.data.slider;
           } else {
             console.log('err');
+          }
+        })
+      },
+      _getDiscList() {
+        getDiscList().then((res) => {
+          if (res.code === ERR_OK) {
+            console.log(res);
           }
         })
       }
