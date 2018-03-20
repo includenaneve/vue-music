@@ -21,9 +21,9 @@ export function param(data) {
   let url = '';
   for (var k in data) {
     let value = data[k] !== undefined ? data[k] : '';
-    if (typeof value === 'object') {
-      value = JSON.stringify(value);
-    }
+    // if (typeof value === 'object') {
+    //   value = JSON.stringify(value);
+    // }
     url += `&${k}=${encodeURIComponent(value)}`
   }
   return url ? url.substring(1) : '';
