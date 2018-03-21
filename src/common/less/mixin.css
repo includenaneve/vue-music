@@ -5,6 +5,8 @@
 }
 .extend-click {
   position: relative;
+}
+.extend-click:before {
   content: '';
   position: absolute;
   top: -10px;
