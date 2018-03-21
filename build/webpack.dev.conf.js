@@ -15,7 +15,7 @@ const express = require('express');
 const axios = require('axios');
 const app = express();
 const apiRoutes = express.Router();
-app.use('/api', apiRoutes);
+app.use('./api', apiRoutes);
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
