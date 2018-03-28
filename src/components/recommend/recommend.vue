@@ -26,11 +26,15 @@
           </ul>
         </div>
       </div>
+      <div class="class-loading-conatiner" v-show="!discList.length">
+        <loading></loading>
+      </div>
     </scroll>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import Loading from 'base/loading/loading'
   import Scroll from 'base/scroll/scroll'
   import Slider from 'base/slider/slider'
   import {getRecommend, getDiscList} from 'api/recommend'
@@ -39,7 +43,9 @@
   export default {
     created() {
       this._getRecommend();
-      this._getDiscList();
+      setTimeout(() => {
+        this._getDiscList();
+      }, 2000)
     },
     data() {
       return {
@@ -74,7 +80,8 @@
     },
     components: {
       Slider,
-      Scroll
+      Scroll,
+      Loading
     }
   }
 </script>
@@ -136,7 +143,7 @@
         position: absolute;
         width: 100%;
         top: 50%;
-        transform: translateY(-50%);
+        transform: translateY(-30%);
       }
     }
   }
