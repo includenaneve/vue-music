@@ -27,6 +27,7 @@
         getSingerList().then((res) => {
           if (res.code === ERR_OK) {
             this.singers = this._normalizeSingerList(res.data.list);
+            console.log(this.singers);
           }
         })
       },
@@ -34,12 +35,12 @@
         let map = {
           hot: {
             title: HOT_NAME,
-            item: []
+            items: []
           }
         }
         list.forEach((item, index) => {
           if (index < HOT_SINGER_LEN) {
-            map.hot.item.push(new Singer({
+            map.hot.items.push(new Singer({
               id: item.Fsinger_mid,
               name: item.Fsinger_name
             }))
@@ -49,10 +50,10 @@
           if (!map[key]) {
             map[key] = {
               title: key,
-              item: []
+              items: []
             }
           }
-          map[key].item.push(new Singer({
+          map[key].items.push(new Singer({
             id: item.Fsinger_mid,
             name: item.Fsinger_name
           }))

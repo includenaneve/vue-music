@@ -12,7 +12,6 @@
       </li>
     </ul>
   </scroll>
-
 </template>
 
 <script>
@@ -22,7 +21,7 @@
     props: {
       data: {
         type: Array,
-        default: []
+        default: null
       }
     },
     components: {Scroll}
@@ -30,9 +29,9 @@
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
-  @import "~common/less/variable";
+  @import "~common/less/variable.less";
 
-  .listview {
+  .listView {
     position: relative;
     width: 100%;
     height: 100%;
