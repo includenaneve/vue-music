@@ -1,9 +1,11 @@
 <template>
   <div class="singer">
+    <list-view :data="singers"></list-view>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import ListView from 'base/listView/listView'
   import {getSingerList} from 'api/singer';
   import {ERR_OK} from 'api/config';
   import Singer from 'common/js/singer'
@@ -24,7 +26,7 @@
       _getSingerList() {
         getSingerList().then((res) => {
           if (res.code === ERR_OK) {
-            console.log(this._normalizeSingerList(res.data.list));
+            this.singers = this._normalizeSingerList(res.data.list);
           }
         })
       },
@@ -70,6 +72,9 @@
         })
         return hot.concat(ret);
       }
+    },
+    components: {
+      ListView
     }
   }
 </script>
