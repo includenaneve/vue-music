@@ -13,15 +13,18 @@
   "dependencies": {
     "babel-runtime": "^6.26.0",
     "vue": "^2.5.2",
+    "vuex": "^3.0.1",
     "vue-router": "^3.0.1",
     "fastclick": "^1.0.6",
     "jsonp": "^0.2.1",
     "better-scroll": "^1.8.4",
     "axios": "^0.18.0",
-    "vue-lazyload": "^1.2.2"
+    "vue-lazyload": "^1.2.2",
+    "js-base64": "^2.4.3",
+    "lyric-parser": "^1.0.1"
   },
   "devDependencies": {
-    "gh-pages":"^1.1.0",
+    "gh-pages": "^1.1.0",
     "express": "^4.16.3",
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",

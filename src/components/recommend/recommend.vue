@@ -1,12 +1,12 @@
 <template>
-  <div class="recommend">
+  <div class="recommend" ref="recommend">
     <scroll class="recommend-content" :data="discList" ref="scroll">
       <div>
         <div v-if="recommends.length" class="slider-wrapper">
           <slider>
             <div v-for="item in recommends" :key="item.id">
               <a :href="item.linkUrl">
-                <img  @load="loadImage" :src="item.picUrl"/>
+                <img @load="loadImage" :src="item.picUrl"/>
               </a>
             </div>
           </slider>
@@ -14,7 +14,7 @@
         <div class="recommend-list">
           <h1 class="list-title">热门歌单推荐</h1>
           <ul>
-            <li v-for="(item,index) in discList" :key="index" class="item">
+            <li @click="selectItem(item)" v-for="(item,index) in discList" :key="index" class="item">
               <div class="icon">
                 <img v-lazy="item.imgurl" width="60" height="60"/>
               </div>
@@ -26,10 +26,11 @@
           </ul>
         </div>
       </div>
-      <div class="class-loading-conatiner" v-show="!discList.length">
+      <div class="loading-conatiner" v-show="!discList.length">
         <loading></loading>
       </div>
     </scroll>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -39,13 +40,14 @@
   import Slider from 'base/slider/slider'
   import {getRecommend, getDiscList} from 'api/recommend'
   import {ERR_OK} from 'api/config'
+  import {playlistMixin} from 'common/js/mixin';
+  import {mapMutations} from 'vuex'
 
   export default {
+    mixins: [playlistMixin],
     created() {
       this._getRecommend();
-      setTimeout(() => {
-        this._getDiscList();
-      }, 2000)
+      this._getDiscList();
     },
     data() {
       return {
@@ -55,6 +57,19 @@
       }
     },
     methods: {
+      // item是一个song对象
+      selectItem(item) {
+        this.$router.push({
+          path: `/recommend/${item.dissid}`
+        })
+        this.setDisc(item);
+      },
+      // mixinxi适配窗口高度
+      handlePlaylist(playlist) {
+        const bottom = playlist.length > 0 ? '60px' : '';
+        this.$refs.recommend.style.bottom = bottom;
+        this.$refs.scroll.refresh();
+      },
       _getRecommend() {
         getRecommend().then((res) => {
           if (res.code === ERR_OK) {
@@ -76,7 +91,10 @@
           this.$refs.scroll.refresh();
           this.checkLoaded = true;
         }
-      }
+      },
+      ...mapMutations({
+        setDisc: 'SET_DISC'
+      })
     },
     components: {
       Slider,
@@ -133,7 +151,7 @@
               color: @color-text;
             }
             .desc {
-              color: @color-text-d;
+              color: @color-text-l;
             }
           }
 

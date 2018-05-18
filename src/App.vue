@@ -5,19 +5,24 @@
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
+    <player></player>
   </div>
 </template>
 
-<script>/* eslint-disable */
- import MHeader from 'components/m-header/m-header.vue'
- import Tab from 'components/tab/tab.vue'
+<script type="text/ecmascript-6">
+  import MHeader from 'components/m-header/m-header'
+  import Tab from 'components/tab/tab'
+  import Player from 'components/player/player';
+
   export default {
-       components:{
-         MHeader,
-         Tab
-       }
+    components: {
+      Player,
+      MHeader,
+      Tab
     }
+  }
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
+
 </style>

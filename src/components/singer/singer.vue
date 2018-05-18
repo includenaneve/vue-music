@@ -1,6 +1,7 @@
 <template>
-  <div class="singer">
-    <list-view :data="singers"></list-view>
+  <div class="singer" ref="singer">
+    <list-view @select="selectSinger" :data="singers" ref="list"></list-view>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -9,11 +10,14 @@
   import {getSingerList} from 'api/singer';
   import {ERR_OK} from 'api/config';
   import Singer from 'common/js/singer'
+  import {mapMutations} from 'vuex'
+  import {playlistMixin} from 'common/js/mixin';
 
   const HOT_NAME = '热';
   const HOT_SINGER_LEN = 10;
 
   export default {
+    mixins: [playlistMixin],
     data() {
       return {
         singers: []
@@ -23,6 +27,17 @@
       this._getSingerList();
     },
     methods: {
+      handlePlaylist(playlist) {
+        const bottom = playlist.length > 0 ? '60px' : '';
+        this.$refs.singer.style.bottom = bottom;
+        this.$refs.list.refresh();
+      },
+      selectSinger(singer) {
+        this.$router.push({
+          path: `/singer/${singer.id}`
+        })
+        this.setSinger(singer);
+      },
       _getSingerList() {
         getSingerList().then((res) => {
           if (res.code === ERR_OK) {
@@ -71,7 +86,10 @@
           return a.title.charCodeAt(0) - b.title.charCodeAt(0);
         })
         return hot.concat(ret);
-      }
+      },
+      ...mapMutations({
+        setSinger: 'SET_SINGER'
+      })
     },
     components: {
       ListView

@@ -136,7 +136,7 @@ html {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   background: #222;
-  color: #fffa0e;
+  color: rgba(255, 255, 255, 0.9);
 }
 @font-face {
   font-family: 'music-icon';
@@ -155,6 +155,7 @@ html {
   font-variant: normal;
   text-transform: none;
   line-height: 1;
+  color: #00CC33;
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
